@@ -1,0 +1,26 @@
+flowchart TD
+    U([User: free-text request<br/>e.g. 'chill music for studying']) --> G{Guardrail<br/>validate_query}
+    G -- empty / too long / no words --> X([Friendly error + log entry])
+    G -- ok --> P[Planner<br/>explicit hints: named genre,<br/>energy words, acoustic]
+    G -- ok --> R[Retriever<br/>TF-IDF over data/vibe_notes.json]
+    KB[(Knowledge base<br/>19 vibe notes)] --> R
+    R -- top 3 notes + similarity --> B[Profile builder<br/>genre/mood from best note,<br/>energy/acoustic blended]
+    P -- hints override --> B
+    B --> S[Ranker<br/>Module 3 score_song +<br/>artist diversity penalty]
+    CAT[(data/songs.csv<br/>20 songs)] --> S
+    S --> C{Self-check<br/>confidence + check_output}
+    C -- low confidence --> RV[Revise<br/>retry with next-best note,<br/>keep the better result]
+    RV --> C2{Re-check}
+    C2 --> O
+    C -- ok --> O([Output: top k songs, reasons,<br/>cited notes, confidence, warnings])
+    O --> L[(logs/vibefinder.log)]
+    C --> L
+    subgraph Testing and human review
+      T1[pytest: 27 unit tests]
+      T2[src/evaluate.py: 14 eval cases<br/>-> eval/results.md]
+      H[Human review of eval table<br/>and --trace output]
+    end
+    T1 -. checks .-> S
+    T1 -. checks .-> G
+    T2 -. runs end to end .-> O
+    H -. reviews .-> T2
