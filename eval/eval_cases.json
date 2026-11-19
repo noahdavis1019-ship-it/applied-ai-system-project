@@ -1,0 +1,16 @@
+[
+  {"query": "chill music for studying", "expect_genres": ["lofi"], "min_conf": 0.5},
+  {"query": "I need something for the gym", "expect_genres": ["pop", "rock", "edm", "metal"], "min_conf": 0.5},
+  {"query": "breakup, feeling sad and alone", "expect_genres": ["indie", "classical"], "min_conf": 0.5},
+  {"query": "jazz for a dinner date", "expect_genres": ["jazz"], "min_conf": 0.5},
+  {"query": "angry, need to vent", "expect_genres": ["metal", "rock"], "min_conf": 0.5},
+  {"query": "late night drive through the city", "expect_genres": ["synthwave"], "min_conf": 0.5},
+  {"query": "party with friends on friday night", "expect_genres": ["edm", "latin", "pop"], "min_conf": 0.5},
+  {"query": "yoga and meditation", "expect_genres": ["ambient"], "min_conf": 0.5},
+  {"query": "missing my hometown", "expect_genres": ["country"], "min_conf": 0.5},
+  {"query": "something uplifting for sunday morning", "expect_genres": ["gospel", "reggae"], "min_conf": 0.5},
+  {"query": "k-pop bangers", "expect_genres": [], "expect_warning": true, "note": "genre not in catalog; system should warn, not silently play pop"},
+  {"query": "asdf qwerty", "expect_genres": [], "expect_warning": true, "note": "gibberish should be low confidence"},
+  {"query": "", "expect_error": true},
+  {"query": "music ", "expect_genres": [], "expect_warning": true, "note": "too vague to answer"}
+]
