@@ -213,8 +213,10 @@ Prefs: {'genre': 'metal', 'mood': 'angry', 'energy': 0.95, 'likes_acoustic': Tru
 
 My biggest learning moment was realizing a recommender is really just math and sorting. Every song gets points for matching genre, mood and energy, and the list is sorted by score. When I changed the genre points from 2.0 to 1.0, Gym Hero went from a clear #2 to basically tied with Rooftop Lights (2.78 vs 2.77). One number changed what a "happy pop" listener would see, which showed me the person choosing the weights has a lot of control.
 
-I used an AI agent to build the project from the assignment steps. Its first version used things we haven't covered in class, so I had it simplified to loops, if statements and dictionaries. After that I read through score_song to understand how each point is added, and I checked Sunrise City's score by hand to make sure the 4.88 was right.
+The biggest thing I learned is that a recommender system is basically math and sorting. Each song earns points for matching genre, mood, and energy, and then the list gets sorted based on its total score. When I dropped the genre weight from 2.0 to 1.0, Gym Hero went from a clear #2 to almost tied with Rooftop Lights (2.78 vs. 2.77). Changing one number changed what a happy pop listener would see, which showed me how much control the person setting the weights really has.
 
-What surprised me was how real the results feel with only four features. Seeing the reasons printed next to each song makes it seem smart, but it only knows labels. Gym Hero shows up for happy pop fans just because it's tagged "pop," even though it's an intense workout song.
+While building the program, I ran into a few problems with the scoring logic. At first, I had trouble making sure the program added points correctly when a song matched multiple preferences. I also had to fix an issue where songs with no matching features were still receiving points they shouldn't have earned. To figure out what was happening, I tested individual songs and used print statements to check how their scores changed after each comparison. I also went through score_song line by line and calculated Sunrise City's 4.88 score by hand to confirm the program was working correctly.
 
-If I kept going, I would make "indie pop" count as partly "pop" so songs aren't ignored because of a slightly different label.
+What surprised me was how real the results feel with only four features. The reasons printed next to each song make it look smart, but it only knows labels. Gym Hero shows up for happy pop fans just because it's tagged "pop," even though it's really a workout song.
+
+If I kept working on it, I'd give "indie pop" partial credit as "pop" so songs don't get skipped over a slightly different label.
