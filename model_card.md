@@ -49,11 +49,11 @@ The realistic risks for a system like this are low-stakes but real: a scaled-up 
 - **The revise step rarely changes the answer.** When the best note is weak, the next one is usually weaker. It still earns its place because it records in the trace that the agent checked an alternative.
 
 ## 7. AI Collaboration
+I used an AI coding assistant (Claude) as a resource while developing this project. I used it to help think through the structure of the retriever, agent, and evaluation system, but I made the implementation decisions, tested the code, and reviewed the results myself.
 
-I built this project with an AI coding assistant (Claude). I used it to propose the architecture, write the first draft of the retriever, agent, and evaluation harness, and draft documentation. I ran every command myself, read the traces, and decided what stayed.
+- Helpful use of AI: I used AI to brainstorm ways to connect retrieved notes to the user's taste profile. One particularly useful suggestion was to have the retrieved notes directly influence the profile rather than simply display them alongside the recommendations. This made the RAG feature more meaningful because changing a note could actually change the recommended songs. I also used AI to help organize evaluation results into a markdown table.
 
-- **Helpful suggestion I accepted:** making the retrieved notes *build* the taste profile, instead of printing retrieved text next to an unchanged recommendation. This is what makes the RAG feature load-bearing: changing a note changes the songs. It also suggested the evaluation harness write a markdown table, which made it easy to see the k-pop failure at a glance.
-- **Flawed suggestion I revised:** the assistant's first draft detected genres with a plain substring check (`if genre in text`) and computed confidence as a weighted average of retrieval and song fit. Both looked fine on happy-path examples but failed in evaluation: "k-pop" became "pop" at 0.97 confidence, and vague queries looked 70% confident. I replaced the substring check with whole-word matching and changed confidence so weak retrieval caps the score. The lesson is that AI-written code needs adversarial test cases, not just the examples it was written against.
+- AI suggestion I had to correct: One suggestion involved using a basic substring check to identify genres and calculating confidence using a weighted average of retrieval quality and song fit. Although this seemed reasonable initially, testing revealed problems. For example, "k-pop" was incorrectly identified as "pop" with 0.97 confidence, while vague searches received confidence scores around 70%. I adjusted the matching logic to recognize whole words and changed the confidence calculation so weak retrieval would limit the overall score. This taught me that AI-generated suggestions still need to be tested against unusual examples rather than just straightforward inputs.
 
 ## 8. Future Work
 
